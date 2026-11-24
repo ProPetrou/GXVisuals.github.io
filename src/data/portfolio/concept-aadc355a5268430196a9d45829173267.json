@@ -1,0 +1,93 @@
+{
+  "id": "concept-aadc355a5268430196a9d45829173267",
+  "title": "Residential Complex, Strovolos, Nicosia",
+  "description": "A residential development combining modern architecture with inviting outdoor spaces.",
+  "kind": "concept",
+  "gallery": [
+    {
+      "alt": "Residential Complex, Strovolos, Nicosia – exterior 1",
+      "type": "exterior",
+      "room": "",
+      "src": "/portfolio-renders/concept-aadc355a5268430196a9d45829173267/1.webp"
+    },
+    {
+      "alt": "Residential Complex, Strovolos, Nicosia – exterior 2",
+      "type": "exterior",
+      "room": "",
+      "src": "/portfolio-renders/concept-aadc355a5268430196a9d45829173267/2.webp"
+    },
+    {
+      "alt": "Residential Complex, Strovolos, Nicosia – exterior 3",
+      "type": "exterior",
+      "room": "",
+      "src": "/portfolio-renders/concept-aadc355a5268430196a9d45829173267/3.webp"
+    },
+    {
+      "alt": "Residential Complex, Strovolos, Nicosia – exterior 4",
+      "type": "exterior",
+      "room": "",
+      "src": "/portfolio-renders/concept-aadc355a5268430196a9d45829173267/4.webp"
+    },
+    {
+      "alt": "Residential Complex, Strovolos, Nicosia – exterior 5",
+      "type": "exterior",
+      "room": "",
+      "src": "/portfolio-renders/concept-aadc355a5268430196a9d45829173267/5.webp"
+    },
+    {
+      "alt": "Residential Complex, Strovolos, Nicosia – interior 6",
+      "type": "interior",
+      "room": "living room",
+      "src": "/portfolio-renders/concept-aadc355a5268430196a9d45829173267/6.webp"
+    },
+    {
+      "alt": "Residential Complex, Strovolos, Nicosia – interior 7",
+      "type": "interior",
+      "room": "dining room",
+      "src": "/portfolio-renders/concept-aadc355a5268430196a9d45829173267/7.webp"
+    },
+    {
+      "alt": "Residential Complex, Strovolos, Nicosia – interior 8",
+      "type": "interior",
+      "room": "living room",
+      "src": "/portfolio-renders/concept-aadc355a5268430196a9d45829173267/8.webp"
+    },
+    {
+      "alt": "Residential Complex, Strovolos, Nicosia – interior 9",
+      "type": "interior",
+      "room": "bedroom",
+      "src": "/portfolio-renders/concept-aadc355a5268430196a9d45829173267/9.webp"
+    },
+    {
+      "alt": "Residential Complex, Strovolos, Nicosia – interior 10",
+      "type": "interior",
+      "room": "bedroom",
+      "src": "/portfolio-renders/concept-aadc355a5268430196a9d45829173267/10.webp"
+    },
+    {
+      "alt": "Residential Complex, Strovolos, Nicosia – interior 11",
+      "type": "interior",
+      "room": "bathroom",
+      "src": "/portfolio-renders/concept-aadc355a5268430196a9d45829173267/11.webp"
+    },
+    {
+      "alt": "Residential Complex, Strovolos, Nicosia – interior 12",
+      "type": "interior",
+      "room": "kitchen",
+      "src": "/portfolio-renders/concept-aadc355a5268430196a9d45829173267/12.webp"
+    },
+    {
+      "alt": "Residential Complex, Strovolos, Nicosia – interior 13",
+      "type": "interior",
+      "room": "kitchen",
+      "src": "/portfolio-renders/concept-aadc355a5268430196a9d45829173267/13.webp"
+    },
+    {
+      "alt": "Residential Complex, Strovolos, Nicosia – interior 14",
+      "type": "interior",
+      "room": "kitchen",
+      "src": "/portfolio-renders/concept-aadc355a5268430196a9d45829173267/14.webp"
+    }
+  ],
+  "coverImage": "/portfolio-renders/concept-aadc355a5268430196a9d45829173267/1.webp"
+}
