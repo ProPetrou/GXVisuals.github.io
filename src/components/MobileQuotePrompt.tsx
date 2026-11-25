@@ -36,7 +36,7 @@ const MobileQuotePrompt = () => {
     name: z.string().trim().min(1, `${t("form_name")} ${t("form_required")}`),
     email: z.string().trim().email(t("form_invalid_email")),
     phone: z.string().trim().optional(),
-    message: z.string().trim().min(1, `${t("form_message")} ${t("form_required")}`),
+    message: z.string().trim().min(1, `${t("contact_details")} ${t("form_required")}`),
   });
 
   useEffect(() => {
@@ -141,7 +141,7 @@ const MobileQuotePrompt = () => {
               name="name"
               value={formData.name}
               onChange={handleChange}
-              placeholder="John Doe"
+              placeholder={t("form_name_placeholder")}
               className="bg-white/5 border-white/10 text-white placeholder:text-gray-600"
             />
             {errors.name && <p className="mt-1 text-xs text-red-400">{errors.name}</p>}
@@ -154,7 +154,7 @@ const MobileQuotePrompt = () => {
               type="email"
               value={formData.email}
               onChange={handleChange}
-              placeholder="john@example.com"
+              placeholder={t("form_email_placeholder")}
               className="bg-white/5 border-white/10 text-white placeholder:text-gray-600"
             />
             {errors.email && <p className="mt-1 text-xs text-red-400">{errors.email}</p>}
@@ -162,7 +162,7 @@ const MobileQuotePrompt = () => {
 
           <div>
             <label className="mb-2 block text-xs font-body text-gray-400">
-              {t("contact_details")}
+              {t("contact_details")} *
             </label>
             <Textarea
               name="message"

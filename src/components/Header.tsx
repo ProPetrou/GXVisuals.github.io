@@ -5,13 +5,16 @@ import { useTranslation } from 'react-i18next';
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { NavLink } from "@/components/NavLink";
 import { isMobileViewport, openMobileContactPrompt } from "@/lib/contactPrompt";
+import { useLang } from "@/hooks/useLang";
+import { Lang, hasGreekVersion, localizePath, saveLangPref } from "@/lib/lang";
 
 const Header = () => {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
+  const { lang, basePath, isHome, lp } = useLang();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -32,24 +35,28 @@ const Header = () => {
       return;
     }
 
-    if (location.pathname === "/") {
+    if (isHome) {
       e.preventDefault();
       document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
     } else {
-      navigate(`/#${id}`);
+      e.preventDefault();
+      navigate(lp(`/#${id}`));
     }
   };
 
   const handleLogoClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
-    if (location.pathname === "/") {
+    if (isHome) {
       e.preventDefault();
       window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
-  const changeLanguage = (lng: string) => {
-    i18n.changeLanguage(lng);
-    document.documentElement.lang = lng;
+  // Switching language moves to the same page under the other URL (/ <-> /el).
+  const changeLanguage = (lng: Lang) => {
+    saveLangPref(lng);
+    if (lng === lang) return;
+    const target = hasGreekVersion(basePath) ? basePath : "/";
+    navigate(localizePath(target, lng) + location.search + location.hash);
   };
 
   return (
@@ -58,7 +65,7 @@ const Header = () => {
         <div className="container mx-auto px-6 flex items-center justify-between">
 
           {/* Logo / Brand */}
-          <Link to="/" onClick={handleLogoClick} className="flex items-center gap-2">
+          <Link to={lp("/")} onClick={handleLogoClick} className="flex items-center gap-2">
             <img src="/mobile-logo.webp" alt="GX Visuals Logo" className="h-9 w-9 object-contain sm:hidden" />
             <img src="/logo.png" alt="GX Visuals Logo" className="hidden h-8 w-auto sm:block" />
             <span className="font-display text-2xl font-semibold text-foreground tracking-tight hidden sm:inline-block">
@@ -69,7 +76,7 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center gap-8">
             <NavLink
-              to="/portfolio"
+              to={lp("/portfolio")}
               className="text-muted-foreground hover:text-foreground transition-colors font-body text-sm tracking-wide"
               activeClassName="text-primary font-bold"
             >
@@ -119,12 +126,13 @@ const Header = () => {
             </div>
 
             {/* Language Switcher */}
-            <div className="flex items-center gap-2 px-3 border-x border-border/50">
-              {['en', 'el'].map((lng) => (
+            <div className="flex items-center gap-2 px-3 border-x border-border/50" role="group" aria-label={t("lang_switch")}>
+              {(["en", "el"] as Lang[]).map((lng) => (
                 <button
                   key={lng}
                   onClick={() => changeLanguage(lng)}
-                  className={`text-[10px] font-bold uppercase ${i18n.language.startsWith(lng) ? 'text-primary' : 'text-muted-foreground'}`}
+                  aria-pressed={lang === lng}
+                  className={`text-[10px] font-bold uppercase ${lang === lng ? 'text-primary' : 'text-muted-foreground'}`}
                 >
                   {lng}
                 </button>
@@ -166,7 +174,7 @@ const Header = () => {
             <button
               className="md:hidden text-foreground hover:text-primary transition-colors p-1"
               onClick={() => setMobileOpen((prev) => !prev)}
-              aria-label="Toggle menu"
+              aria-label={t("menu_toggle")}
             >
               {mobileOpen ? <X size={24} /> : <Menu size={24} />}
             </button>
@@ -179,7 +187,7 @@ const Header = () => {
       {mobileOpen && (
         <div className="fixed inset-0 z-40 bg-background/95 backdrop-blur-md flex flex-col items-center justify-center gap-8 md:hidden">
           <Link
-            to="/portfolio"
+            to={lp("/portfolio")}
             onClick={() => setMobileOpen(false)}
             className="font-display text-3xl text-foreground hover:text-primary transition-colors"
           >

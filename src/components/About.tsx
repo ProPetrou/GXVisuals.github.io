@@ -172,7 +172,7 @@ const About = () => {
             onClick={openContactFromCta}
             className="group relative inline-flex items-center justify-center px-10 py-4 font-body text-xs tracking-[0.3em] uppercase transition-all duration-500 bg-[#00bad3] text-white rounded-full hover:bg-[#00bad3]/90 hover:shadow-[0_0_30px_rgba(0,186,211,0.4)] transform hover:-translate-y-1 whitespace-nowrap"
           >
-            <span className="relative z-10 font-bold">{t("CONTACT US", "CONTACT US")}</span>
+            <span className="relative z-10 font-bold">{t("contact_us_btn")}</span>
             <ArrowRight size={18} className="ml-3 transition-transform duration-300 group-hover:translate-x-2" />
           </button>
         </motion.div>

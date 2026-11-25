@@ -5,8 +5,18 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
+import { useLang } from "@/hooks/useLang";
+import { setPageMeta } from "@/lib/seo";
 
 const PortfolioPage = () => {
+  const { t } = useTranslation();
+  const { lang, lp } = useLang();
+
+  useEffect(() => {
+    setPageMeta({ title: t("meta_portfolio_title"), description: t("meta_portfolio_desc"), path: "/portfolio", lang });
+  }, [lang, t]);
+
   // Πάντα στην κορυφή όταν ανοίγει η σελίδα
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -21,9 +31,9 @@ const PortfolioPage = () => {
           {/* Navigation Back */}
           <div className="mb-12 animate-fade-in">
             <Button asChild variant="ghost" className="hover:text-primary -ml-4">
-              <Link to="/" className="flex items-center gap-2">
+              <Link to={lp("/")} className="flex items-center gap-2">
                 <ArrowLeft size={16} />
-                <span>Back to Home</span>
+                <span>{t("back_home")}</span>
               </Link>
             </Button>
           </div>
@@ -31,14 +41,13 @@ const PortfolioPage = () => {
           {/* Header Section */}
           <div className="max-w-3xl mb-16 animate-fade-up">
             <span className="text-primary font-body text-sm tracking-widest uppercase mb-4 block">
-              Our Work
+              {t("portfolio_page_eyebrow")}
             </span>
             <h1 className="font-display text-5xl md:text-7xl mb-6 italic">
-              Featured <span className="text-gradient">Portfolio</span>
+              {t("portfolio_page_title_1")} <span className="text-gradient">{t("portfolio_page_title_2")}</span>
             </h1>
             <p className="text-muted-foreground text-lg font-body leading-relaxed">
-              Explore our latest 3D visualizations, architectural renderings, and interior design concepts. 
-              Each project is crafted with precision to bring architectural visions to life.
+              {t("portfolio_page_sub")}
             </p>
           </div>
 

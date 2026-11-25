@@ -4,6 +4,7 @@ import { useTranslation } from 'react-i18next';
 import { Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 import { openContactFromCta } from "@/lib/contactPrompt";
+import { useLang } from "@/hooks/useLang";
 import hero1 from "@/assets/portfolio-8.webp";
 import hero2 from "@/assets/portfolio-29.webp";
 import hero3 from "@/assets/portfolio-24.webp";
@@ -14,6 +15,7 @@ const heroImages = [hero1, hero2, hero3, hero4, hero5];
 
 const Hero = () => {
   const { t } = useTranslation();
+  const { lp } = useLang();
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   useEffect(() => {
@@ -36,7 +38,7 @@ const Hero = () => {
           <img
             key={image}
             src={image}
-            alt="GXVISUALS portfolio render"
+            alt={t("hero_img_alt")}
             className={`absolute inset-0 w-full h-full object-cover transition-opacity ease-in-out ${
               index === currentImageIndex ? "opacity-100" : "opacity-0"
             }`}
@@ -68,7 +70,7 @@ const Hero = () => {
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up">
           <Button asChild variant="hero" size="xl" className="shadow-glow">
-            <Link to="/portfolio">
+            <Link to={lp("/portfolio")}>
               {t('hero_btn_portfolio', 'View Our Work')}
             </Link>
           </Button>

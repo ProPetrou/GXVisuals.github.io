@@ -9,10 +9,13 @@ import { ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { openContactFromCta } from "@/lib/contactPrompt";
 
-import { projectsData } from "@/data/portfolioProjects";
+import { localizeProject, projectsData } from "@/data/portfolioProjects";
+import { useLang } from "@/hooks/useLang";
 
 const Portfolio = () => {
   const { t } = useTranslation();
+  const { lang } = useLang();
+  const roomLabel = (room: string) => (room ? t(`room_${room.replace(/ /g, "_")}`, room) : "");
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const [activeTab, setActiveTab] = useState("all");
@@ -23,7 +26,7 @@ const Portfolio = () => {
 
   const currentFeedItems = useMemo(() => {
     if (activeTab === "all") {
-      return projectsData.map((project) => ({
+      return projectsData.map((sourceProject) => localizeProject(sourceProject, lang)).map((project) => ({
         isGroupedFolder: true,
         id: project.id,
         title: project.title,
@@ -31,13 +34,13 @@ const Portfolio = () => {
         displayImage: project.coverImage,
         initialIndexInGallery: project.kind ? Math.max(0, project.gallery.findIndex((photo) => photo.src === project.coverImage)) : 0,
         associatedProject: project,
-        tagLabel: project.kind === "concept" ? "Concept" : t("Full Project Portfolio"),
+        tagLabel: project.kind === "concept" ? t("portfolio_tag_concept") : t("portfolio_tag_full"),
         hoverSubtitle: project.title,
       }));
     }
 
     let itemsList: any[] = [];
-    projectsData.forEach((project) => {
+    projectsData.map((sourceProject) => localizeProject(sourceProject, lang)).forEach((project) => {
       project.gallery.forEach((photo) => {
         const matchesCategory = photo.type === activeTab;
         const matchesSubRoom = activeTab === "interior" && (activeSubTab === "all" || photo.room === activeSubTab);
@@ -53,32 +56,25 @@ const Portfolio = () => {
             displayImage: photo.src,
             initialIndexInGallery: matchingIndex >= 0 ? matchingIndex : 0,
             associatedProject: project,
-            tagLabel: photo.type === "exterior" ? t("EXTERIOR") : photo.room,
+            tagLabel: photo.type === "exterior" ? t("tab_exterior") : roomLabel(photo.room),
             hoverSubtitle: photo.alt,
           });
         }
       });
     });
     return itemsList;
-  }, [activeTab, activeSubTab]);
+  }, [activeTab, activeSubTab, lang, t]);
 
   const tabs = [
-    { id: "all", label: t("ALL") },
-    { id: "exterior", label: t("EXTERIOR") },
-    { id: "interior", label: t("INTERIOR") },
+    { id: "all", label: t("tab_all") },
+    { id: "exterior", label: t("tab_exterior") },
+    { id: "interior", label: t("tab_interior") },
   ];
 
   const subTabs = [
-    { id: "all", label: t("ALL") },
-    { id: "kitchen", label: t("KITCHEN") },
-    { id: "bathroom", label: t("BATHROOM") },
-    { id: "living room", label: t("LIVING ROOM") },
-    { id: "bedroom", label: t("BEDROOM") },
-    { id: "office", label: t("OFFICE") },
-    { id: "gym", label: t("GYM") },
-    { id: "dining room", label: t("DINING ROOM", { defaultValue: "Dining room" }) },
-    { id: "lobby area", label: t("LOBBY AREA", { defaultValue: "Lobby area" }) },
-    { id: "sitting area", label: t("SITTING AREA", { defaultValue: "Sitting area" }) },
+    { id: "all", label: t("tab_all") },
+    ...["kitchen", "bathroom", "living room", "bedroom", "office", "gym", "dining room", "lobby area", "sitting area"]
+      .map((room) => ({ id: room, label: roomLabel(room) })),
   ];
 
   const handleOpenFolder = (feedItem: any) => {
@@ -214,8 +210,8 @@ const Portfolio = () => {
                         <div className="text-center md:text-left min-w-[200px] max-w-xs">
                           <span className="text-[#00bad3] text-[9px] font-body tracking-[0.2em] uppercase block mb-0.5">
                             {selectedProject.gallery[selectedImgIndex]?.type === "exterior"
-                              ? t("EXTERIOR ARCHITECTURE")
-                              : `${t("INTERIOR")} - ${selectedProject.gallery[selectedImgIndex]?.room}`}
+                              ? t("portfolio_exterior_arch")
+                              : `${t("portfolio_interior")} - ${roomLabel(selectedProject.gallery[selectedImgIndex]?.room || "")}`}
                           </span>
                           <p className="text-white font-display italic text-xs font-light truncate">
                             {selectedProject.gallery[selectedImgIndex]?.alt}
@@ -257,7 +253,7 @@ const Portfolio = () => {
             onClick={openContactFromCta}
             className="group relative inline-flex items-center justify-center px-12 py-4 font-body text-xs tracking-[0.3em] uppercase transition-all duration-500 bg-[#00bad3] text-white rounded-full hover:bg-[#00bad3]/90 hover:shadow-[0_0_30px_rgba(0,186,211,0.4)] transform hover:-translate-y-1"
           >
-            <span className="relative z-10 font-bold">{t("CONTACT US", "CONTACT US")}</span>
+            <span className="relative z-10 font-bold">{t("contact_us_btn")}</span>
             <ArrowRight size={18} className="ml-3 transition-transform duration-300 group-hover:translate-x-2" />
           </button>
         </div>

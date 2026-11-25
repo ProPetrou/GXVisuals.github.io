@@ -46,10 +46,10 @@ const ContactForm = ({
   const [captchaToken, setCaptchaToken] = useState<string | null>(null);
 
   const contactSchema = z.object({
-    name: z.string().trim().min(1, t("form_name") + " is required"),
-    email: z.string().trim().email("Invalid email"),
+    name: z.string().trim().min(1, `${t("form_name")} ${t("form_required")}`),
+    email: z.string().trim().email(t("form_invalid_email")),
     phone: z.string().trim().optional(),
-    message: z.string().trim().min(1, t("form_message") + " is required"),
+    message: z.string().trim().min(1, `${t("contact_details")} ${t("form_required")}`),
   });
 
   type ContactFormData = z.infer<typeof contactSchema>;
@@ -209,11 +209,11 @@ const ContactForm = ({
 
             {market !== "general" && (
               <div className="mb-6 rounded-xl border border-primary/20 bg-primary/5 p-4">
-                <p className="text-sm font-semibold text-foreground">What happens next</p>
+                <p className="text-sm font-semibold text-foreground">{t("next_title")}</p>
                 <ol className="mt-3 list-decimal space-y-2 pl-5 text-sm text-muted-foreground">
-                  <li><span className="font-medium text-foreground">Send drawings.</span> Include a link to your CAD/PDF plans, the views you need and your deadline in the message, or email drawings to info@gxvisuals.com.</li>
-                  <li><span className="font-medium text-foreground">Quote within 24h.</span> We’ll confirm scope, price and timing.</li>
-                  <li><span className="font-medium text-foreground">Production starts after approval.</span> Review and approve your quote before work begins.</li>
+                  <li><span className="font-medium text-foreground">{t("next_1_strong")}</span> {t("next_1_text")}</li>
+                  <li><span className="font-medium text-foreground">{t("next_2_strong")}</span> {t("next_2_text")}</li>
+                  <li><span className="font-medium text-foreground">{t("next_3_strong")}</span> {t("next_3_text")}</li>
                 </ol>
               </div>
             )}
@@ -221,13 +221,13 @@ const ContactForm = ({
             <form onSubmit={handleSubmit} className="space-y-5">
               <div>
                 <label className="block text-sm font-body text-muted-foreground mb-2">{t("form_name")} *</label>
-                <Input name="name" value={formData.name} onChange={handleChange} placeholder="John Doe" />
+                <Input name="name" value={formData.name} onChange={handleChange} placeholder={t("form_name_placeholder")} />
                 {errors.name && <p className="text-destructive text-xs mt-1">{errors.name}</p>}
               </div>
 
               <div>
                 <label className="block text-sm font-body text-muted-foreground mb-2">{t("form_email")} *</label>
-                <Input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="john@example.com" />
+                <Input name="email" type="email" value={formData.email} onChange={handleChange} placeholder={t("form_email_placeholder")} />
                 {errors.email && <p className="text-destructive text-xs mt-1">{errors.email}</p>}
               </div>
 

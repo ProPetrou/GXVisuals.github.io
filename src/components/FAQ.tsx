@@ -112,7 +112,7 @@ const FAQ = () => {
             onClick={openContactFromCta}
             className="inline-flex items-center gap-2 bg-[#00bad3] text-white px-8 py-3 rounded-full font-body text-xs tracking-widest uppercase hover:bg-[#00bad3]/90 hover:shadow-[0_0_30px_rgba(0,186,211,0.4)] transition-all duration-300 transform hover:-translate-y-1"
           >
-            Contact Us
+            {t("contact_us_btn")}
           </button>
         </div>
 

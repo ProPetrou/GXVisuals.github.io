@@ -1,34 +1,20 @@
+import { useTranslation } from "react-i18next";
+
 const Process = () => {
-  const steps = [
-    {
-      number: "1",
-      title: "Briefing",
-      description: "Share your vision, dimensions, and style preferences with us.",
-    },
-    {
-      number: "2",
-      title: "Design",
-      description: "We create initial concepts and layout proposals for your review.",
-    },
-    {
-      number: "3",
-      title: "3D Render",
-      description: "Photorealistic visualization with materials, lighting and details.",
-    },
-    {
-      number: "4",
-      title: "Delivery",
-      description: "Final high-resolution files delivered based on the agreed timeline.",
-    },
-  ];
+  const { t } = useTranslation();
+  const steps = [1, 2, 3, 4].map((number) => ({
+    number: String(number),
+    title: t(`process_${number}_title`),
+    description: t(`process_${number}_desc`),
+  }));
 
   return (
     <section className="bg-[#0A0A0A] py-16 text-white">
       <div className="container mx-auto px-6 text-center">
         <span className="text-primary text-xs tracking-[0.3em] font-body uppercase mb-4 block">
-          HOW IT WORKS
+          {t("process_eyebrow")}
         </span>
-        <h2 className="text-4xl md:text-5xl font-display mb-12 italic">Our Process</h2>
+        <h2 className="text-4xl md:text-5xl font-display mb-12 italic">{t("process_title")}</h2>
         <div className="relative">
           {/* Connecting line desktop only */}
           <div className="hidden md:block absolute top-10 left-[10%] right-[10%] h-[1px] bg-primary/20" />

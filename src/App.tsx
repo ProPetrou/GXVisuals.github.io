@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Suspense, lazy } from "react";
 import NewsletterPopup from "@/components/NewsletterPopup";
+import LanguageSync from "@/components/LanguageSync";
 import Index from "./pages/Index";
 import { Toaster } from "@/components/ui/toaster";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -19,16 +20,25 @@ const App = () => (
       <Toaster />
       <BrowserRouter>
         <NewsletterPopup />
-        <Suspense fallback={<div className="h-screen w-full bg-[#121212]" />}>
-          <Routes>
-            <Route path="/" element={<Index />} />
-            <Route path="/portfolio" element={<PortfolioPage />} />
-            <Route path="/free-quote" element={<LandingPage />} />
-            <Route path="/cyprus" element={<MarketLandingPage market="cyprus" />} />
-            <Route path="/uk" element={<MarketLandingPage market="uk" />} />
-          </Routes>
-          <MobileQuotePrompt />
-        </Suspense>
+        <LanguageSync>
+          <Suspense fallback={<div className="h-screen w-full bg-[#121212]" />}>
+            <Routes>
+              {/* English (default) */}
+              <Route path="/" element={<Index />} />
+              <Route path="/portfolio" element={<PortfolioPage />} />
+              <Route path="/free-quote" element={<LandingPage />} />
+              <Route path="/cyprus" element={<MarketLandingPage market="cyprus" />} />
+              <Route path="/uk" element={<MarketLandingPage market="uk" />} />
+  
+              {/* Greek */}
+              <Route path="/el" element={<Index />} />
+              <Route path="/el/portfolio" element={<PortfolioPage />} />
+              <Route path="/el/free-quote" element={<LandingPage />} />
+              <Route path="/el/cyprus" element={<MarketLandingPage market="cyprus" />} />
+            </Routes>
+            <MobileQuotePrompt />
+          </Suspense>
+        </LanguageSync>
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
