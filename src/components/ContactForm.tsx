@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -67,6 +67,14 @@ const ContactForm = ({
     setFormData((prev) => ({ ...prev, [name]: value }));
     setErrors((prev) => ({ ...prev, [name]: undefined }));
   };
+
+  // The homepage loads this section lazily, after the browser has handled the
+  // #contact hash (e.g. arriving from /portfolio), so scroll here once mounted.
+  useEffect(() => {
+    if (window.location.hash === "#contact") {
+      document.getElementById("contact")?.scrollIntoView();
+    }
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
